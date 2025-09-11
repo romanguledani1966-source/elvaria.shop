@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoInvestigators - Professional Cryptocurrency Investigation Team</title>
+    <meta name="description" content="Expert blockchain forensics, cryptocurrency tracing, and digital asset recovery services. Trusted by law enforcement, financial institutions, and legal professionals worldwide.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        /* CSS Custom Properties - Warm Yellow & Blue Color Palette */
+        :root {
+            --background: hsl(0 0% 100%);
+            --foreground: hsl(223 47% 23%);
+            --card: hsl(48 100% 97%);
+            --card-foreground: hsl(223 47% 23%);
+            --primary: hsl(218 89% 42%);
+            --primary-foreground: hsl(0 0% 100%);
+            --secondary: hsl(45 93% 58%);
+            --secondary-foreground: hsl(223 47% 23%);
+            --muted: hsl(220 13% 91%);
+            --muted-foreground: hsl(223 47% 46%);
+            --accent: hsl(48 100% 88%);
+            --accent-foreground: hsl(218 89% 42%);
+            --border: hsl(220 13% 91%);
+            --input: hsl(220 13% 97%);
+            --crypto-blue: hsl(218 89% 42%);
+            --crypto-yellow: hsl(45 93% 58%);
+            --crypto-dark-blue: hsl(223 47% 23%);
+            --crypto-light-yellow: hsl(48 100% 88%);
+            --crypto-gradient: linear-gradient(135deg, hsl(218 89% 42%) 0%, hsl(45 93% 58%) 100%);
+            --crypto-gradient-subtle: linear-gradient(135deg, hsl(220 13% 97%) 0%, hsl(48 100% 97%) 100%);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            line-height: 1.6;
+            color: var(--foreground);
+            background-color: var(--background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--muted);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--crypto-gradient);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--crypto-blue);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        .text-gradient {
+            background: var(--crypto-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+            scroll-margin-top: 4rem;
+        }
+
+        .section-muted {
+            background-color: hsla(220, 13%, 91%, 0.3);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: hsla(0, 0%, 100%, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 4rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--foreground);
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 1rem;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 0.75rem;
+            color: var(--foreground);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary);
+            background: var(--accent);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .btn-primary:hover {
+            background: hsl(218 89% 35%);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--foreground);
+            border: 2px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--card-foreground);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--foreground);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            background: var(--input);
+            color: var(--foreground);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px hsla(218, 89%, 42%, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid-cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        /* Flexbox */
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        /* Text */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-muted {
+            color: var(--muted-foreground);
+        }
+
+        .text-primary {
+            color: var(--primary);
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+        }
+
+        .text-6xl {
+            font-size: 3.75rem;
+        }
+
+        /* Spacing */
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-16 { margin-bottom: 4rem; }
+
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-gradient {
+            background: var(--crypto-gradient);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--crypto-gradient);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: var(--muted-foreground);
+            margin-bottom: 2rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .floating-icon {
+            position: absolute;
+            opacity: 0.2;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .floating-icon-1 {
+            top: 5rem;
+            left: 2.5rem;
+        }
+
+        .floating-icon-2 {
+            bottom: 5rem;
+            right: 2.5rem;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary);
+            color: var(--secondary-foreground);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .check-icon {
+            color: var(--primary);
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Contact Info */
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            color: var(--primary);
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Team Member */
+        .team-avatar {
+            width: 8rem;
+            height: 8rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--muted-foreground);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .text-sm-6xl {
+                font-size: 3.75rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .nav-menu {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .grid-md-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            
+            .grid-md-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-lg-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            
+            .grid-lg-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            
+            .grid-lg-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .floating-icon {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo text-gradient">
+                CryptoInvestigators
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link active" data-section="hero">Home</a></li>
+                <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                <li><a href="#services" class="nav-link" data-section="services">Services</a></li>
+                <li><a href="#cases" class="nav-link" data-section="cases">Case Studies</a></li>
+                <li><a href="#team" class="nav-link" data-section="team">Team</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#hero" class="mobile-nav-link" data-section="hero">Home</a>
+            <a href="#about" class="mobile-nav-link" data-section="about">About</a>
+            <a href="#services" class="mobile-nav-link" data-section="services">Services</a>
+            <a href="#cases" class="mobile-nav-link" data-section="cases">Case Studies</a>
+            <a href="#team" class="mobile-nav-link" data-section="team">Team</a>
+            <a href="#contact" class="mobile-nav-link" data-section="contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="animate-fade-in">
+                <h1 class="hero-title text-gradient">
+                    Professional Crypto Investigation Team
+                </h1>
+                <p class="hero-subtitle">
+                    Expert blockchain forensics, cryptocurrency tracing, and digital asset recovery services. 
+                    Trusted by law enforcement, financial institutions, and legal professionals worldwide.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary btn-lg animate-scale-in">
+                        Start Investigation
+                        <i data-lucide="chevron-right"></i>
+                    </a>
+                    <a href="#services" class="btn btn-outline btn-lg animate-scale-in">
+                        Our Services
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-icon floating-icon-1">
+            <i data-lucide="shield" style="width: 3rem; height: 3rem;"></i>
+        </div>
+        <div class="floating-icon floating-icon-2">
+            <i data-lucide="search" style="width: 4rem; height: 4rem;"></i>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section section-muted">
+        <div class="container">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-4xl text-gradient mb-4">
+                    Leading Crypto Investigation Experts
+                </h2>
+                <p class="text-xl text-muted">
+                    With over a decade of experience in blockchain forensics, we help recover stolen assets, 
+                    trace suspicious transactions, and provide expert testimony in cryptocurrency cases.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 grid-lg-2 gap-8 items-center">
+                <div class="animate-slide-up">
+                    <img 
+                        src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3" 
+                        alt="Professional investigation team analyzing blockchain data"
+                        style="border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); width: 100%; height: 24rem; object-fit: cover;"
+                    />
+                </div>
+                
+                <div class="animate-slide-up">
+                    <div style="margin-bottom: 1.5rem;">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="target" class="contact-icon"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl mb-2">Precision & Accuracy</h3>
+                                <p class="text-muted">
+                                    Our advanced blockchain analysis tools and methodologies ensure precise tracking 
+                                    of digital assets across multiple cryptocurrencies and exchanges.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="shield" class="contact-icon"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl mb-2">Confidential & Secure</h3>
+                                <p class="text-muted">
+                                    All investigations are conducted with the highest levels of confidentiality and security, 
+                                    protecting client information and evidence integrity.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="award" class="contact-icon"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl mb-2">Certified Expertise</h3>
+                                <p class="text-muted">
+                                    Our team consists of certified blockchain investigators, forensic accountants, 
+                                    and cybersecurity professionals with proven track records.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-4xl text-gradient mb-4">
+                    Our Investigation Services
+                </h2>
+                <p class="text-xl text-muted">
+                    Comprehensive cryptocurrency investigation services tailored to your specific needs
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 grid-md-2 grid-lg-3 gap-8">
+                <!-- Asset Tracing & Recovery -->
+                <div class="card card-hover animate-scale-in">
+                    <div class="card-header">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="search" style="width: 1.5rem; height: 1.5rem; color: var(--accent-foreground);"></i>
+                            </div>
+                            <h3 class="card-title">Asset Tracing & Recovery</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-muted mb-4">
+                            Track and recover stolen or lost cryptocurrency assets across multiple blockchains and exchanges.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Multi-chain analysis</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Exchange cooperation</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Recovery strategies</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Fraud Investigation -->
+                <div class="card card-hover animate-scale-in">
+                    <div class="card-header">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="eye" style="width: 1.5rem; height: 1.5rem; color: var(--accent-foreground);"></i>
+                            </div>
+                            <h3 class="card-title">Fraud Investigation</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-muted mb-4">
+                            Comprehensive investigation of cryptocurrency fraud, scams, and financial crimes.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Evidence gathering</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Pattern analysis</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Suspect identification</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Blockchain Forensics -->
+                <div class="card card-hover animate-scale-in">
+                    <div class="card-header">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="database" style="width: 1.5rem; height: 1.5rem; color: var(--accent-foreground);"></i>
+                            </div>
+                            <h3 class="card-title">Blockchain Forensics</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-muted mb-4">
+                            Deep dive analysis of blockchain transactions and smart contract interactions.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Transaction mapping</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Address clustering</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Flow visualization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Expert Testimony -->
+                <div class="card card-hover animate-scale-in">
+                    <div class="card-header">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="file-text" style="width: 1.5rem; height: 1.5rem; color: var(--accent-foreground);"></i>
+                            </div>
+                            <h3 class="card-title">Expert Testimony</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-muted mb-4">
+                            Professional expert witness services for cryptocurrency-related legal proceedings.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Court testimony</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Report preparation</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Case consultation</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Compliance Monitoring -->
+                <div class="card card-hover animate-scale-in">
+                    <div class="card-header">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="shield" style="width: 1.5rem; height: 1.5rem; color: var(--accent-foreground);"></i>
+                            </div>
+                            <h3 class="card-title">Compliance Monitoring</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-muted mb-4">
+                            AML/KYC compliance monitoring and suspicious activity detection services.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Risk assessment</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Ongoing monitoring</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Regulatory reporting</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Due Diligence -->
+                <div class="card card-hover animate-scale-in">
+                    <div class="card-header">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div style="background: var(--accent); padding: 0.75rem; border-radius: 50%;">
+                                <i data-lucide="trending-up" style="width: 1.5rem; height: 1.5rem; color: var(--accent-foreground);"></i>
+                            </div>
+                            <h3 class="card-title">Due Diligence</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="text-muted mb-4">
+                            Comprehensive background checks and risk assessment for cryptocurrency transactions.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Source of funds</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Risk scoring</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm text-muted">Enhanced due diligence</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="cases" class="section section-muted">
+        <div class="container">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-4xl text-gradient mb-4">
+                    Successful Case Studies
+                </h2>
+                <p class="text-xl text-muted">
+                    Real results from our cryptocurrency investigation expertise
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 grid-md-2 grid-lg-3 gap-8">
+                <!-- DeFi Protocol Hack -->
+                <div class="card card-hover animate-scale-in" style="overflow: hidden;">
+                    <div style="position: relative; height: 12rem; overflow: hidden;">
+                        <img 
+                            src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="$2.5M DeFi Protocol Hack Recovery"
+                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.1)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                        />
+                        <div style="position: absolute; top: 1rem; left: 1rem;">
+                            <span class="badge">Recent Success</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="text-xl mb-3">$2.5M DeFi Protocol Hack Recovery</h3>
+                        <p class="text-muted mb-4">
+                            Successfully traced and recovered stolen funds from a complex DeFi protocol exploit.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">100% fund recovery</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">Perpetrator identified</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">Legal action initiated</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- International Laundering Ring -->
+                <div class="card card-hover animate-scale-in" style="overflow: hidden;">
+                    <div style="position: relative; height: 12rem; overflow: hidden;">
+                        <img 
+                            src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="International Crypto Laundering Ring"
+                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.1)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                        />
+                        <div style="position: absolute; top: 1rem; left: 1rem;">
+                            <span class="badge">Law Enforcement</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="text-xl mb-3">International Crypto Laundering Ring</h3>
+                        <p class="text-muted mb-4">
+                            Exposed multi-jurisdictional money laundering operation involving 15+ exchanges.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">12 arrests made</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">$8M seized</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">Network dismantled</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Corporate Fraud -->
+                <div class="card card-hover animate-scale-in" style="overflow: hidden;">
+                    <div style="position: relative; height: 12rem; overflow: hidden;">
+                        <img 
+                            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="Corporate Fraud Investigation"
+                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.1)'"
+                            onmouseout="this.style.transform='scale(1)'"
+                        />
+                        <div style="position: absolute; top: 1rem; left: 1rem;">
+                            <span class="badge">Corporate</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="text-xl mb-3">Corporate Fraud Investigation</h3>
+                        <p class="text-muted mb-4">
+                            Uncovered internal cryptocurrency theft and provided evidence for prosecution.
+                        </p>
+                        <ul class="feature-list">
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">Evidence secured</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">Conviction obtained</span>
+                            </li>
+                            <li class="feature-item">
+                                <i data-lucide="check-circle" class="check-icon"></i>
+                                <span class="text-sm">Assets recovered</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section">
+        <div class="container">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-4xl text-gradient mb-4">
+                    Our Expert Team
+                </h2>
+                <p class="text-xl text-muted">
+                    Meet the professionals behind our successful investigations
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 grid-md-2 grid-lg-4 gap-8">
+                <!-- Sarah Chen -->
+                <div class="card card-hover animate-scale-in text-center">
+                    <div class="card-content">
+                        <img 
+                            src="https://images.unsplash.com/photo-1494790108755-2616b612b999?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="Sarah Chen"
+                            class="team-avatar"
+                        />
+                        <h3 class="text-xl mb-2">Sarah Chen</h3>
+                        <p class="text-primary mb-2">Lead Blockchain Investigator</p>
+                        <div style="margin-bottom: 0.25rem;">
+                            <p class="text-sm text-muted">CFE, CAMS</p>
+                            <p class="text-sm text-muted">12+ years</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marcus Rodriguez -->
+                <div class="card card-hover animate-scale-in text-center">
+                    <div class="card-content">
+                        <img 
+                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="Marcus Rodriguez"
+                            class="team-avatar"
+                        />
+                        <h3 class="text-xl mb-2">Marcus Rodriguez</h3>
+                        <p class="text-primary mb-2">Forensic Analyst</p>
+                        <div style="margin-bottom: 0.25rem;">
+                            <p class="text-sm text-muted">CPA, CBP</p>
+                            <p class="text-sm text-muted">8+ years</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dr. Emily Watson -->
+                <div class="card card-hover animate-scale-in text-center">
+                    <div class="card-content">
+                        <img 
+                            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="Dr. Emily Watson"
+                            class="team-avatar"
+                        />
+                        <h3 class="text-xl mb-2">Dr. Emily Watson</h3>
+                        <p class="text-primary mb-2">Cybersecurity Expert</p>
+                        <div style="margin-bottom: 0.25rem;">
+                            <p class="text-sm text-muted">PhD, CISSP</p>
+                            <p class="text-sm text-muted">15+ years</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- James Park -->
+                <div class="card card-hover animate-scale-in text-center">
+                    <div class="card-content">
+                        <img 
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3"
+                            alt="James Park"
+                            class="team-avatar"
+                        />
+                        <h3 class="text-xl mb-2">James Park</h3>
+                        <p class="text-primary mb-2">Legal Technology Specialist</p>
+                        <div style="margin-bottom: 0.25rem;">
+                            <p class="text-sm text-muted">JD, GCFA</p>
+                            <p class="text-sm text-muted">10+ years</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-muted">
+        <div class="container">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-4xl text-gradient mb-4">
+                    Start Your Investigation Today
+                </h2>
+                <p class="text-xl text-muted">
+                    Contact our team of experts for a confidential consultation about your cryptocurrency case
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 grid-lg-2 gap-8">
+                <!-- Contact Form -->
+                <div class="card animate-slide-up">
+                    <div class="card-header">
+                        <h3 class="card-title">Send us a message</h3>
+                    </div>
+                    <div class="card-content">
+                        <form id="contact-form">
+                            <div class="grid grid-cols-1 grid-md-2 gap-4 mb-4">
+                                <div class="form-group">
+                                    <label for="firstName" class="form-label">First Name *</label>
+                                    <input 
+                                        type="text" 
+                                        id="firstName" 
+                                        name="firstName"
+                                        placeholder="John"
+                                        class="form-input"
+                                        required
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName" class="form-label">Last Name *</label>
+                                    <input 
+                                        type="text" 
+                                        id="lastName" 
+                                        name="lastName"
+                                        placeholder="Doe"
+                                        class="form-input"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email"
+                                    placeholder="john@example.com"
+                                    class="form-input"
+                                    required
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    name="phone"
+                                    placeholder="+1 (555) 123-4567"
+                                    class="form-input"
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="form-label">Case Details *</label>
+                                <textarea 
+                                    id="message" 
+                                    name="message"
+                                    placeholder="Please provide details about your case, including the nature of the investigation needed and any relevant information..."
+                                    rows="6"
+                                    class="form-input form-textarea"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.125rem; padding: 0.75rem;">
+                                Submit Confidential Inquiry
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="animate-slide-up" style="display: flex; flex-direction: column; gap: 2rem;">
+                    <!-- Email -->
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="contact-card">
+                                <i data-lucide="mail" class="contact-icon"></i>
+                                <div>
+                                    <h3 class="mb-1">Email Us</h3>
+                                    <p class="text-muted">investigations@cryptoinvestigators.com</p>
+                                    <p class="text-sm text-muted">24/7 secure email support</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="contact-card">
+                                <i data-lucide="phone" class="contact-icon"></i>
+                                <div>
+                                    <h3 class="mb-1">Call Us</h3>
+                                    <p class="text-muted">+1 (555) CRYPTO-1</p>
+                                    <p class="text-sm text-muted">Emergency hotline available</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Office -->
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="contact-card">
+                                <i data-lucide="map-pin" class="contact-icon"></i>
+                                <div>
+                                    <h3 class="mb-1">Our Office</h3>
+                                    <p class="text-muted">
+                                        123 Blockchain Avenue<br />
+                                        New York, NY 10001
+                                    </p>
+                                    <p class="text-sm text-muted">Secure meetings by appointment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Response Time -->
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="contact-card">
+                                <i data-lucide="clock" class="contact-icon"></i>
+                                <div>
+                                    <h3 class="mb-1">Response Time</h3>
+                                    <p class="text-muted">
+                                        Emergency cases: Within 2 hours<br />
+                                        Standard inquiries: Within 24 hours
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 CryptoInvestigators. Professional cryptocurrency investigation services worldwide.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Navigation active states and smooth scrolling
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        // Handle navigation clicks
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                // Close mobile menu if open
+                mobileMenu.classList.remove('active');
+                
+                // Update active states
+                updateActiveNavigation(link.getAttribute('data-section'));
+            });
+        });
+
+        // Update active navigation state
+        function updateActiveNavigation(activeSection) {
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-section') === activeSection) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Handle scroll-based navigation highlighting
+        function handleScroll() {
+            let current = '';
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            if (current) {
+                updateActiveNavigation(current);
+            }
+        }
+
+        // Throttled scroll handler for performance
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+
+        // Contact form handling
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.firstName || !data.lastName || !data.email || !data.message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your inquiry! We will contact you within 24 hours.');
+                contactForm.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-scale-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // Set initial active navigation
+        updateActiveNavigation('hero');
+    </script>
+</body>
+</html>
